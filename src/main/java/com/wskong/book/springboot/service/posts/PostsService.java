@@ -2,7 +2,7 @@ package com.wskong.book.springboot.service.posts;
 
 import com.wskong.book.springboot.domain.Posts.Posts;
 import com.wskong.book.springboot.domain.Posts.PostsRepository;
-import com.wskong.book.springboot.web.dto.PostsReponseDto;
+import com.wskong.book.springboot.web.dto.PostsResponseDto;
 import com.wskong.book.springboot.web.dto.PostsSaveRequestDto;
 import com.wskong.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +28,8 @@ public class PostsService {
         return id;
     }
 
-    public PostsReponseDto findById(Long id){
+    public PostsResponseDto findById(Long id){
         Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        return new PostsReponseDto(entity);
+        return new PostsResponseDto(entity);
     }
 }

@@ -11,26 +11,31 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @ExtendWith(SpringExtension.class)
-@WebMvcTest()
+@WebMvcTest(controllers = HelloController.class)
 public class HelloControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void hello가_리턴된다() throws Exception{
+    public void hello_return() throws Exception{
         String hello = "hello";
 
-        mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string(hello));
+        mvc.perform(get("/hello"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(hello));
     }
 
     @Test
-    public void dto_리턴() throws Exception{
+    public void dto_return() throws Exception{
         String name = "hello";
         int amount = 1000;
 
-        mvc.perform(get("/hello/dto").param("name", name).param("amount", String.valueOf(amount)))
+        mvc.perform(get("/hello/dto")
+                        .param("name", name)
+                        .param("amount", String.valueOf(amount)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(name)))
                 .andExpect(jsonPath("$.amount", is(amount)));
